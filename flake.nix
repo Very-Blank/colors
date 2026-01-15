@@ -18,6 +18,10 @@
     nixosModules."colors" = {config, ...}: let
       lib = nixpkgs.lib;
     in {
+      imports = [
+        inputs.base16.nixosModule
+      ];
+
       options = {
         colors = {
           theme = lib.mkOption {
