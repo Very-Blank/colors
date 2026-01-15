@@ -54,15 +54,14 @@
     };
   };
 
-  # config = let
-  #   cfg = config.colors;
-  # in
-  #   lib.mkIf (builtins.length cfg.Overrides != 0) {
-  #     colors.theme = lib.mkMerge [
-  #       (map
-  #         (option:
-  #           lib.attrsets.nameValuePair (option.color) (option.value))
-  #         cfg.overrides)
-  #     ];
-  #   };
+  config = let
+    cfg = config.colors;
+  in
+    lib.mkIf (builtins.length cfg.Overrides != 0) {
+      colors.theme = lib.mkMerge [
+        (map
+          (option: {"${option.value}" = option.value;})
+          cfg.overrides)
+      ];
+    };
 }
