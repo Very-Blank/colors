@@ -21,7 +21,7 @@
       ...
     }: {
       imports = [
-        inputs.base16.nixosModule
+        inputs.base16.nixosModules
       ];
 
       options = {
@@ -38,6 +38,8 @@
           };
 
           overrides = lib.mkOption {
+            default = [];
+
             type = lib.types.listOf (
               lib.types.submodule {
                 options = {
@@ -54,8 +56,6 @@
                 };
               }
             );
-
-            default = [];
           };
         };
       };
