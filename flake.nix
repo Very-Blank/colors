@@ -15,7 +15,7 @@
   # config.scheme.base0${"0"-"F"}
 
   outputs = {nixpkgs, ...} @ inputs: {
-    nixosModules."colors" = {config}: let
+    nixosModules."colors" = {config, ...}: let
       lib = nixpkgs.lib;
     in {
       options = {
