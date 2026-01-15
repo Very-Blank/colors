@@ -1,18 +1,11 @@
 {
   description = "Colors of my system";
 
-  inputs = {
-    base16.url = "github:SenchoPens/base16.nix";
+  inputs = {};
 
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
-  };
-
-  outputs = {...} @ inputs: {
+  outputs = {...}: {
     nixosModules = {
-      default = import ./default.nix {inherit inputs;};
+      default = import ./default.nix;
     };
   };
 }

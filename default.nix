@@ -1,21 +1,34 @@
-{inputs}: {
+{
   lib,
   config,
   ...
 }: {
-  imports = [inputs.base16.nixosModule];
-
   options = {
     colors = {
-      theme = lib.mkOption {
-        default = "tokyo-night-terminal-dark";
-        description = "The base 16 seceme used for theming.";
-        type = lib.types.enum [
-          "catppuccin-mocha"
-          "chinoiserie-midnight"
-          "atelier-plateau"
-          "tokyo-night-terminal-dark"
-        ];
+      theme = let
+        baseOption = default:
+          lib.mkOption {
+            default = default;
+            description = "One of the base16 colors.";
+            type = lib.types.nonEmptyStr;
+          };
+      in {
+        base00 = baseOption "#16161E";
+        base01 = baseOption "#1A1B26";
+        base02 = baseOption "#2F3549";
+        base03 = baseOption "#444B6A";
+        base04 = baseOption "#787C99";
+        base05 = baseOption "#787C99";
+        base06 = baseOption "#CBCCD1";
+        base07 = baseOption "#D5D6DB";
+        base08 = baseOption "#F7768E";
+        base09 = baseOption "#FF9E64";
+        base0A = baseOption "#E0AF68";
+        base0B = baseOption "#41A6B5";
+        base0C = baseOption "#7DCFFF";
+        base0D = baseOption "#7AA2F7";
+        base0E = baseOption "#BB9AF7";
+        base0F = baseOption "#D18616";
       };
 
       overrides = lib.mkOption {
@@ -43,18 +56,13 @@
 
   config = let
     cfg = config.colors;
-    isOverridesZero = builtins.length cfg.overrides == 0;
-  in
-    lib.mkMerge [
-      (lib.mkIf isOverridesZero {scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";})
-      (lib.mkIf (!isOverridesZero) {
-        scheme = (
-          (config.lib.base16.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (
-            lib.attrsets.genAttrs' cfg.overrides (
-              option: lib.attrsets.nameValuePair (option.color) (option.value)
-            )
-          )
-        );
-      })
+  in {
+    colors.theme = lib.mkMerge [
+      lib.attrsets.genAttrs'
+      cfg.overrides
+      (
+        option: lib.attrsets.nameValuePair (option.color) (option.value)
+      )
     ];
+  };
 }
