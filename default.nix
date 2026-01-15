@@ -59,11 +59,11 @@
   in
     lib.mkIf (builtins.length cfg.Overrides != 0) {
       colors.theme = lib.mkMerge [
-        lib.attrsets.genAttrs'
-        cfg.overrides
-        (
-          option: lib.attrsets.nameValuePair (option.color) (option.value)
-        )
+        (lib.attrsets.genAttrs'
+          cfg.overrides
+          (
+            option: lib.attrsets.nameValuePair (option.color) (option.value)
+          ))
       ];
     };
 }
