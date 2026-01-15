@@ -15,7 +15,7 @@
   # config.scheme.base0${"0"-"F"}
 
   outputs = {...} @ inputs: {
-    nixosModules."colors" = {
+    nixosModules.default = {
       config,
       lib,
       ...
