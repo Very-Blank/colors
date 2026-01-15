@@ -19,9 +19,7 @@
       config,
       ...
     }: {
-      imports = [
-        inputs.base16.nixosModule
-      ];
+      import = inputs.base16.nixosModule;
 
       options = {
         colors = {
