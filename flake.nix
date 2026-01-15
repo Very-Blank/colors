@@ -14,10 +14,12 @@
   # To actually use the colors use:
   # config.scheme.base0${"0"-"F"}
 
-  outputs = {nixpkgs, ...} @ inputs: {
-    nixosModules."colors" = {config, ...}: let
-      lib = nixpkgs.lib;
-    in {
+  outputs = {...} @ inputs: {
+    nixosModules."colors" = {
+      config,
+      lib,
+      ...
+    }: {
       imports = [
         inputs.base16.nixosModule
       ];
