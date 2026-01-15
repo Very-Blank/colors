@@ -56,13 +56,14 @@
 
   config = let
     cfg = config.colors;
-  in {
-    colors.theme = (lib.mkIf builtins.length cfg.Overrides != 0) lib.mkMerge [
-      lib.attrsets.genAttrs'
-      cfg.overrides
-      (
-        option: lib.attrsets.nameValuePair (option.color) (option.value)
-      )
-    ];
-  };
+  in
+    lib.mkIf (builtins.length cfg.Overrides != 0) {
+      colors.theme = lib.mkMerge [
+        lib.attrsets.genAttrs'
+        cfg.overrides
+        (
+          option: lib.attrsets.nameValuePair (option.color) (option.value)
+        )
+      ];
+    };
 }
