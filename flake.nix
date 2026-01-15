@@ -1,5 +1,5 @@
 {
-  description = "Color flake";
+  description = "Colors of my system flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -14,12 +14,10 @@
   # To actually use the colors use:
   # config.scheme.base0${"0"-"F"}
 
-  outputs = {...} @ inputs: {
-    nixosModules.default = {
-      config,
-      lib,
-      ...
-    }: {
+  outputs = {nixpkgs, ...} @ inputs: {
+    nixosModules.default = {config, ...}: let
+      lib = nixpkgs.lib;
+    in {
       imports = [
         inputs.base16.nixosModule
       ];
