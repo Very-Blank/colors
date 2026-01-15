@@ -57,7 +57,7 @@
   config = let
     cfg = config.colors;
   in {
-    colors.theme = lib.mkMerge [
+    colors.theme = (lib.mkIf builtins.length cfg.Overrides != 0) lib.mkMerge [
       lib.attrsets.genAttrs'
       cfg.overrides
       (
