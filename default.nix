@@ -1,7 +1,6 @@
-{
+{inputs}: {
   lib,
   config,
-  inputs,
   ...
 }: {
   imports = [inputs.base16.nixosModule];
