@@ -2,7 +2,6 @@
   description = "Colors of my system flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     base16.url = "github:SenchoPens/base16.nix";
 
     tt-schemes = {
@@ -14,10 +13,12 @@
   # To actually use the colors use:
   # config.scheme.base0${"0"-"F"}
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    lib = nixpkgs.lib;
-  in {
-    nixosModules.default = {config, ...}: {
+  outputs = {...} @ inputs: {
+    nixosModules.default = {
+      lib,
+      config,
+      ...
+    }: {
       imports = [
         inputs.base16.nixosModule
       ];
@@ -58,28 +59,22 @@
         };
       };
 
-      # config = let
-      #   cfg = config.colors;
-      #   isOverridesZero = builtins.length cfg.overrides == 0;
-      # in
-      #   lib.mkMerge [
-      #     (lib.mkIf isOverridesZero {scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";})
-      #     (lib.mkIf (!isOverridesZero) {
-      #       scheme = (
-      #         (inputs.base16.lib.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (
-      #           lib.attrsets.genAttrs' cfg.overrides (
-      #             option: lib.attrsets.nameValuePair (option.color) (option.value)
-      #           )
-      #         )
-      #       );
-      #     })
-      #   ];
-
       config = let
         cfg = config.colors;
-      in {
-        scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";
-      };
+        isOverridesZero = builtins.length cfg.overrides == 0;
+      in
+        lib.mkMerge [
+          (lib.mkIf isOverridesZero {scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";})
+          (lib.mkIf (!isOverridesZero) {
+            scheme = (
+              (inputs.base16.lib.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (
+                lib.attrsets.genAttrs' cfg.overrides (
+                  option: lib.attrsets.nameValuePair (option.color) (option.value)
+                )
+              )
+            );
+          })
+        ];
     };
   };
 }
