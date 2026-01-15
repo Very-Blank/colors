@@ -66,7 +66,7 @@
           (lib.mkIf isOverridesZero {scheme = "${inputs.tt-schemes}/base16/${cfg.theme}.yaml";})
           (lib.mkIf (!isOverridesZero) {
             scheme = (
-              (inputs.base16.lib.base16.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (
+              (inputs.base16.lib.mkSchemeAttrs "${inputs.tt-schemes}/base16/${cfg.theme}.yaml").override (
                 lib.attrsets.genAttrs' cfg.overrides (
                   option: lib.attrsets.nameValuePair (option.color) (option.value)
                 )
