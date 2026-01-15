@@ -21,7 +21,7 @@
       ...
     }: {
       imports = [
-        inputs.base16.nixosModules
+        inputs.base16.nixosModule
       ];
 
       options = {
