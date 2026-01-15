@@ -58,10 +58,10 @@
     cfg = config.colors;
   in
     lib.mkIf ((builtins.length cfg.overrides) != 0) {
-      colors.theme = lib.mkMerge [
+      colors.theme =
+        lib.mkMerge
         (map
-          (option: {"${option.value}" = option.value;})
-          cfg.overrides)
-      ];
+          (option: {"${option.color}" = option.value;})
+          cfg.overrides);
     };
 }
