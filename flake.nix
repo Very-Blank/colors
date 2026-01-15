@@ -17,6 +17,7 @@
     nixosModules = {
       default = import ./default.nix;
       specialArgs = {inherit inputs;};
+      DFDF = {inherit inputs;};
     };
   };
 }
