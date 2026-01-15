@@ -20,7 +20,6 @@
       ...
     }: {
       imports = [
-        inputs.base16.lib
         inputs.base16.nixosModule
       ];
 
