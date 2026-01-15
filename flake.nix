@@ -14,7 +14,7 @@
   # To actually use the colors use:
   # config.scheme.base0${"0"-"F"}
 
-  outputs = {nixpkgs} @ inputs: {
+  outputs = {nixpkgs, ...} @ inputs: {
     nixosModules."colors" = {config}: let
       lib = nixpkgs.lib;
     in {
