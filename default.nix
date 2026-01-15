@@ -57,7 +57,7 @@
   config = let
     cfg = config.colors;
   in
-    lib.mkIf (builtins.length cfg.Overrides != 0) {
+    lib.mkIf ((builtins.length cfg.overrides) != 0) {
       colors.theme = lib.mkMerge [
         (map
           (option: {"${option.value}" = option.value;})
