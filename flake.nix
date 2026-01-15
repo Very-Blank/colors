@@ -1,5 +1,5 @@
 {
-  description = "Colors of my system flake";
+  description = "Colors of my system";
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
@@ -9,9 +9,6 @@
       flake = false;
     };
   };
-
-  # To actually use the colors use:
-  # config.scheme.base0${"0"-"F"}
 
   outputs = {...} @ inputs: {
     nixosModules = {

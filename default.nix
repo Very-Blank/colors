@@ -20,7 +20,7 @@
 
       overrides = lib.mkOption {
         default = [];
-
+        description = "Overrides for the base16 colors";
         type = lib.types.listOf (
           lib.types.submodule {
             options = {
@@ -42,7 +42,7 @@
   };
 
   config = let
-    cfg = config.modules.graphical.theming;
+    cfg = config.colors;
     isOverridesZero = builtins.length cfg.overrides == 0;
   in
     lib.mkMerge [
