@@ -5,13 +5,13 @@
 }: {
   options = {
     colors = {
-      name = lib.mkOption {
+      theme = lib.mkOption {
         default = "tokyodark";
         description = "Name of the theme.";
         type = lib.types.nonEmptyStr;
       };
 
-      theme = let
+      palette = let
         baseOption = default:
           lib.mkOption {
             default = default;
@@ -63,7 +63,7 @@
   config = let
     cfg = config.colors;
   in {
-    colors.theme = (import (./base16 ++ "/${cfg.name}.nix")).palette;
+    colors.palette = (import (./base16 + "/${cfg.theme}.nix")).palette;
   };
   # lib.mkIf ((builtins.length cfg.overrides) != 0) {
   #   colors.theme =
