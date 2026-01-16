@@ -5,6 +5,12 @@
 }: {
   options = {
     colors = {
+      name = lib.mkOption {
+        default = "tokyodark";
+        description = "One of the base16 colors.";
+        type = lib.types.nonEmptyStr;
+      };
+
       theme = let
         baseOption = default:
           lib.mkOption {
@@ -56,12 +62,14 @@
 
   config = let
     cfg = config.colors;
-  in
-    lib.mkIf ((builtins.length cfg.overrides) != 0) {
-      colors.theme =
-        lib.mkMerge
-        (map
-          (option: {"${option.color}" = option.value;})
-          cfg.overrides);
-    };
+  in {
+    colors.theme = (import ./base16 ++ "/cfg.name").palette;
+  };
+  # lib.mkIf ((builtins.length cfg.overrides) != 0) {
+  #   colors.theme =
+  #     lib.mkMerge
+  #     (map
+  #       (option: {"${option.color}" = option.value;})
+  #       cfg.overrides);
+  # };
 }
