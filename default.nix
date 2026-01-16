@@ -63,7 +63,7 @@
   config = let
     cfg = config.colors;
   in {
-    colors.theme = (import ./base16 ++ "/cfg.name").palette;
+    colors.theme = (import ./base16 ++ "/${cfg.name}").palette;
   };
   # lib.mkIf ((builtins.length cfg.overrides) != 0) {
   #   colors.theme =
