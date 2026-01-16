@@ -40,6 +40,6 @@
   config = let
     cfg = config.colors;
   in {
-    colors.palette = (import (./base16 + "/${cfg.theme}.nix")).palette;
+    colors.palette = lib.mkDefault (import (./base16 + "/${cfg.theme}.nix")).palette;
   };
 }
